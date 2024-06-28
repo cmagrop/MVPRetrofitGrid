@@ -20,6 +20,7 @@ class PicsAdapter(private val context: Context)
     {
         picsList.clear()
         picsList.addAll(list)
+        notifyDataSetChanged()
 
     }
 
