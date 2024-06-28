@@ -2,10 +2,13 @@ package com.example.mvpretrofitgrid.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.GridLayout
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mvpretrofitgrid.R
 import com.example.mvpretrofitgrid.databinding.ActivityMainBinding
 import com.example.mvpretrofitgrid.model.PicsResponse
@@ -35,21 +38,28 @@ class MainActivity : AppCompatActivity(),PicturesView {
 
     override fun showProgress() {
 
+        binding.progress.visibility = View.VISIBLE
 
 
     }
 
     override fun hideProgress() {
-        TODO("Not yet implemented")
+        binding.progress.visibility = View.GONE
     }
 
     override fun onLoadedPictures(pics: PicsResponse) {
 
+        val adapter = PicsAdapter(this)
+        adapter.setList(pics)
+
+        binding.rvPics.setHasFixedSize(true)
+        binding.rvPics.layoutManager = GridLayoutManager(this,2)
+        binding.rvPics.adapter = adapter
 
 
     }
 
     override fun onError(error: String) {
-        TODO("Not yet implemented")
+        Toast.makeText(this,error,Toast.LENGTH_LONG).show()
     }
 }
